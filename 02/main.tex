@@ -24,7 +24,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{minted}
+\setminted{linenos=true,breaklines=true,obeytabs=true,tabsize=2}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 \usepackage{helvet}
@@ -84,21 +86,76 @@
 
 % TOC
 \begin{frame}{Agenda}{\vphantom{(y}}
-\tableofcontents
+	\vfill
+	\begin{itemize}
+		\item JavaScript
+		\item Ajax
+		\item RegEx
+	\end{itemize}
+	\vfill
 \end{frame}
 %%%%%%%%%%%%%%%
 
-\section{Introduction}
 
-\begin{frame}[t]
-	\frametitle{Items}
-	\framesubtitle{Items}
+\begin{frame}[fragile]
+	\frametitle{JavaScript}
+	\framesubtitle{Games and stuff}
+
+	Responsive webpage
+
 	\begin{itemize}
-		\item RegEx (JavaScript PHP)
-		\item Ajax
-		\item JavaScript in CSS
-		\item JavaScript Events
+		\item<1-> Changing elements\\
+			\mintinline{js}{document.getElementById("myBtn").style.color="black";} 
+		\item<2-> Add event listeners in HTML\\
+			\mintinline{html}{<input type="text" id="fname" onclick="myFunction()">} 
+		\item<3-> Directly in JavaScript\\
+			\mintinline{js}{document.getElementById("myBtn").addEventListener("click", displayDate);} 
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{JavaScript}
+	\framesubtitle{AJAX}
+	\begin{minted}{js}
+function loadDoc() {
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+	 document.getElementById("demo").innerHTML = this.responseText;
+	}
+};
+xhttp.open("GET", "ajax_info.txt", true);
+xhttp.send();
+}
+	\end{minted}
+	\footnote{ Example from \href{https://www.w3schools.com/js/js_ajax_intro.asp}{w3schools}}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{JavaScript}
+	\framesubtitle{RegEx}
+	\begin{itemize}
+		\item<1-> Phone Number Validation\\
+			\mintinline{js}|let phoneRegEx = new RegExp(/^\+(\d){8,25}$/); | 
+		\item<2-> Password validation\\
+			\mintinline{js}{let ref = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/) } 
 	\end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{PHP}
+	\framesubtitle{RegEx}
+	\begin{itemize}
+		\item<1-> Phone Number Validation\\
+			\mintinline{php}|preg_match('/^\+(\d){8,25}$/',Subject); | 
+		\item<2-> Password validation\\
+			\mintinline{php}{preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)',Subject); } 
+	\end{itemize}
+	
+\end{frame}
+
 
 \end{document}
