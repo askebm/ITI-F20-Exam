@@ -24,6 +24,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{booktabs}
 \usepackage{minted}
 \setminted{linenos=true,breaklines=true,obeytabs=true,tabsize=2}
 % Or whatever. Note that the encoding and the font should match. If T1
@@ -86,26 +87,18 @@
 
 % TOC
 \begin{frame}{Agenda}{\vphantom{(y}}
-\tableofcontents
+	\vfill
+	\begin{itemize}
+		\item Selectors
+		\item Box Model
+		\item Block Types and Position
+	\end{itemize}
+	\vfill
 \end{frame}
 %%%%%%%%%%%%%%%
 
-\section{Introduction}
 
 
-\begin{frame}[t]
-	\frametitle{items}
-	\framesubtitle{Items}
-
-
-	\begin{itemize}
-		\item Elements Class id and Selection (DOM)
-		\item Margin, borders and padding.
-		\item blocks inline-blocks.
-		\item Navbar example
-	\end{itemize}
-
-\end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Selection}
@@ -113,7 +106,9 @@
 	\vspace{-0.8cm}
 	\begin{columns}
 		\begin{column}{0.4\textwidth}
-			\begin{minted}{css}
+			\begin{uncoverenv}<2->
+
+				\begin{minted}{css}
 Element.Class#Id {
 	color: black;
 }
@@ -121,14 +116,16 @@ Element.Class#Id {
 .user {
 	background-color: #c1c1c1;
 }
-.user.UserAdmin {
+.user#UserAdmin {
 	background-color: #aaaaaa;
 }
 a:hover {
 	color: lightblue;
 }
 
-			\end{minted}
+				\end{minted}
+
+			\end{uncoverenv}
 
 		\end{column}
 		\begin{column}{0.6\textwidth}
@@ -152,8 +149,32 @@ a:hover {
 
 		\end{column}
 	\end{columns}
+\end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{Specificity}
+	\framesubtitle{You get a point and you get a point, everybody gets a point}
 
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{lrr}
+			\toprule
+			\textbf{Selector} & \textbf{Specificity} &  \textbf{Specificity in base 10}\\
+			\midrule\\
+			\mintinline{css}{!important p{}} &1,0,0,0,1&10001\\
+			Style=""& 0,1,0,0,0& 1000\\
+			\mintinline{css}{#wrapper #content {}} & 0,0,2,0,0&200\\
+			\mintinline{css}{#content .datePosted {}} &  0,0,1,1,0 & 110\\
+			\mintinline{css}{div#content {}} &  0,0,1,0,1&101\\
+			\mintinline{css}{#content {}} &  0,0,1,0,0&100\\
+			\mintinline{css}{p.comment .dateposted {}} &  0,0,0,2,1& 21\\
+			\mintinline{css}{p.comment {}} & 0,0,0,1,1&11\\
+			\mintinline{css}{div p {} } & 0,0,0,0,2&2\\
+			\mintinline{css}{p {}} &  0,0,0,0,1&1\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
 \end{frame}
 
 \begin{frame}[fragile]
@@ -164,11 +185,9 @@ a:hover {
 \begin{minted}{css}
 Element.Class#Id {
 	margin-top: 2px;
-	border: 1px solid.
+	border: 1px solid;
 	padding: 2px;
 }
-
-
 \end{minted}
 
 	\end{column}
@@ -193,15 +212,60 @@ Element.Class#Id {
 
 \begin{columns}
 	\begin{column}{0.5\textwidth}
+\begin{onlyenv}<1>
 \begin{minted}{css}
-Element.Class#Id {
-	display: block
+li {
+	display: block;
+	text-align: center;
+	padding: 5px;
 }
 \end{minted}
+	
+\end{onlyenv}
+\begin{onlyenv}<2>
+\begin{minted}{css}
+li {
+	display: inline-block;
+	text-align: center;
+	padding: 5px;
+}
+\end{minted}
+	
+\end{onlyenv}
+\begin{onlyenv}<3>
+\begin{minted}{css}
+li {
+	display: inline;
+	text-align: center;
+	padding: 5px;
+}
+\end{minted}
+	
+\end{onlyenv}
 		
 	\end{column}
 	\begin{column}{0.5\textwidth}
-		
+		\begin{onlyenv}<1>
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=1\linewidth]{img/block.png}
+			\end{figure}
+		\end{onlyenv}
+
+		\begin{onlyenv}<2>
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=1\linewidth]{img/inline-block.png}
+			\end{figure}
+		\end{onlyenv}
+
+		\begin{onlyenv}<3>
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=1\linewidth]{img/inline.png}
+			\end{figure}
+		\end{onlyenv}
+
 	\end{column}
 \end{columns}
 
