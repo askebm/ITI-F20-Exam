@@ -24,7 +24,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{minted}
+\setminted{linenos=true,breaklines=true,obeytabs=true,tabsize=2}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 \usepackage{helvet}
@@ -38,7 +40,7 @@
   \href{#1}{{\usebeamercolor[bg]{SDUsimple}#2}}%
 }
 
-\title{HHTP, PHP, Sessions and Cookies}
+\title{HTTP, PHP, Sessions and Cookies}
 \subtitle{Backend stuff ish}
 %\date{\today}
 \date{ }
@@ -99,6 +101,35 @@
 		\item Cross Site Scripting
 		\item HTTPS - SSL encryption
 	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{HTTP}
+	\framesubtitle{Verbs}
+	\begin{itemize}
+		\item<1-> GET
+		\item<2-> POST
+		\item<3-> PUT
+		\item<4-> DELETE
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Session \& Cookies}
+	\framesubtitle{Be wary of the cookie monster}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Cross-Site Scripting}
+	\framesubtitle{aka Offroad}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{SSL/TLS encryption}
+	\framesubtitle{Symmetric and Asymmetric}
+	
 \end{frame}
 
 \end{document}
