@@ -24,7 +24,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
+\usepackage{minted}
+\setminted{linenos=true,breaklines=true,obeytabs=true,tabsize=2}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 \usepackage{helvet}
@@ -46,6 +47,7 @@
 \author{
   \textbf{ITI-F20}
 }
+
 
 % - Give the names in the same order as they appear in the paper.
 % - Use the \inst{?} command only if the authors have different
@@ -95,12 +97,113 @@
 	\frametitle{items}
 	\framesubtitle{Items}
 
+
 	\begin{itemize}
 		\item Elements Class id and Selection (DOM)
 		\item Margin, borders and padding.
 		\item blocks inline-blocks.
 		\item Navbar example
 	\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Selection}
+	\framesubtitle{Elements, Class and Id}
+	\vspace{-0.8cm}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{minted}{css}
+Element.Class#Id {
+	color: black;
+}
+
+.user {
+	background-color: #c1c1c1;
+}
+.user.UserAdmin {
+	background-color: #aaaaaa;
+}
+a:hover {
+	color: lightblue;
+}
+
+			\end{minted}
+
+		\end{column}
+		\begin{column}{0.6\textwidth}
+\begin{minted}{html}
+<nav class="menu">
+	<ul>
+		<li> <a href="#">Pictures</a></li>
+		<li> <a href="#">Users</a></li>
+	</ul>
+</nav>
+<div class="wrapper">
+	<div class="content">
+		<div class="user" id="UserAdmin">
+			User dude thing
+		</div><div class="user" id="Pleb">
+			User dude thing
+		</div>
+	</div>
+</div>
+\end{minted}
+
+		\end{column}
+	\end{columns}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Box Model}
+	\framesubtitle{Margin, Borders and Padding}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+\begin{minted}{css}
+Element.Class#Id {
+	margin-top: 2px;
+	border: 1px solid.
+	padding: 2px;
+}
+
+
+\end{minted}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+\begin{figure}[htpb]
+\begin{center}
+\begin{tikzpicture}[scale=1, transform shape]
+	\node[minimum width=4cm,minimum height=4cm,fill=yellow!40]{};
+	\node[minimum width=3cm,minimum height=3cm,fill=blue!50!red!50,draw=black,thick]{};
+	\node[minimum width=2cm,minimum height=2cm,fill=blue!50!white]{};
+\end{tikzpicture}
+\end{center}
+\end{figure}
+
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Block types and Position}
+	\framesubtitle{Blocks, Inline-blocks \& Inline}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+\begin{minted}{css}
+Element.Class#Id {
+	display: block
+}
+\end{minted}
+		
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		
+	\end{column}
+\end{columns}
 
 \end{frame}
 
