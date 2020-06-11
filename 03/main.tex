@@ -122,7 +122,7 @@
 \begin{frame}[fragile]
 	\frametitle{Cross-Site Scripting}
 	\framesubtitle{aka Offroad}
-
+	\mintinline{php}{$sanitizedSubject = filter_var ($Subject, FILTER_SANITIZE_SPECIAL_CHARS);}
 \end{frame}
 
 \begin{frame}[fragile]
