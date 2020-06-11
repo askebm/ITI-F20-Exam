@@ -24,7 +24,21 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
+\usepackage{dirtree}
+\setlength{\DTbaselineskip}{15pt}
+\DTsetlength{0.2em}{1em}{0.2em}{0.4pt}{1.6pt}
+\usepackage{booktabs}
+\usepackage{minted}
+\setminted{linenos=true,breaklines=true,obeytabs=true,tabsize=2}
+\usepackage{import}
+\newcommand{\includesvg}[2][./]{%
+    \immediate\write18{inkscape #1#2.svg --export-latex -D --export-filename=#1#2.pdf }
+\import{#1}{#2.pdf_tex}
+}
+
+\usepackage{pgf}
+\usetikzlibrary{graphs,graphdrawing,quotes}
+\usegdlibrary{force,layered,circular}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 \usepackage{helvet}
@@ -84,21 +98,73 @@
 
 % TOC
 \begin{frame}{Agenda}{\vphantom{(y}}
-\tableofcontents
+\begin{itemize}
+		\item API
+		\item Authentication
+	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%
 
-\section{Introduction}
 
-\begin{frame}[t]
-	\frametitle{Item}
-	\framesubtitle{Item}
+\begin{frame}[fragile]
+	\frametitle{API}
+	\framesubtitle{200 : \{"succes!"\}}
 	\begin{itemize}
-		\item REST api concept
-		\item REST api example
-		\item SOAP (get clean bitch)
-		\item Authentication
+		\item Application
+		\item Programmer
+		\item Interface
 	\end{itemize}
+
+	\vfill
+	\texttt{GET localhost:8080/xx/mvc/public/api/users}\\
+	Response
+	\begin{minted}{json}
+[
+	{
+		"user_id":"1","username":"jack"
+	},{
+		"user_id":"2", "username":"jill"
+	}
+]	
+	\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{API}
+	\framesubtitle{PHP. PHP everywhere}
+	\begin{minted}{php}
+<?php
+public function users () {
+	$users = $this->model('User')->getAll();
+	echo json_encode($users, JSON_PRETTY_PRINT);
+}
+	\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{REST}
+	\framesubtitle{You're still using SOAP? Take a REST}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Authentication}
+	\framesubtitle{I don't trust you}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			Basic Auth
+			\begin{itemize}
+				\item Token
+				\item Username password
+				\item TLS/SSL only
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			oAuth
+
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \end{document}
