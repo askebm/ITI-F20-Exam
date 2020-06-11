@@ -24,7 +24,19 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{minted}
+\setminted{linenos=true,breaklines=true,obeytabs=true,tabsize=2}
+\usepackage{import}
+\newcommand{\includesvg}[2][./]{%
+    \immediate\write18{inkscape #1#2.svg --export-latex -D --export-filename=#1#2.pdf }
+\import{#1}{#2.pdf_tex}
+}
+
+\usepackage{pgf}
+\usetikzlibrary{graphs,graphdrawing,quotes}
+\usegdlibrary{force,layered,circular}
+
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 \usepackage{helvet}
@@ -46,6 +58,7 @@
 \author{
   \textbf{ITI-F20}
 }
+
 
 % - Give the names in the same order as they appear in the paper.
 % - Use the \inst{?} command only if the authors have different
@@ -84,21 +97,84 @@
 
 % TOC
 \begin{frame}{Agenda}{\vphantom{(y}}
-\tableofcontents
+\begin{itemize}
+		\item Structure
+		\item Syntax
+		\item PDO
+	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%
 
-\section{Introduction}
 
-\begin{frame}[t]
-	\frametitle{Items}
-	\framesubtitle{Items}
-	\begin{itemize}
-		\item Struktur
-		\item Syntax
-		\item Migration file
-		\item SQL injection
-	\end{itemize}
+\begin{frame}[fragile]
+	\frametitle{Structure}
+	\framesubtitle{Database or Schema, who knows?}
+	\begin{figure}[htpb]
+	\begin{center}
+	\begin{tikzpicture}[scale=1, transform shape]
+		\graph[layered layout]{
+			"DBMS"[draw] //[draw] {
+				Schema1 [draw] // {
+					table1[draw,minimum width=3cm]
+				},
+				Schema2 [draw]// {
+					table2[draw,minimum width=3cm]
+				}
+			}
+		};
+	\end{tikzpicture}
+	\end{center}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{MySQL Syntax}
+	\framesubtitle{EVERYTHINGS IS IN CAPS!}
+	\begin{minted}{mysql}
+drop database if exists dbName;
+create database dbName;
+use dbName;
+
+CREATE TABLE user (
+	user_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	username varchar(100) NOT NULL,
+	password varchar(100) NOT NULL
+);
+	\end{minted}
+	\pause
+	\vfill
+	\begin{minted}{mysql}
+SELECT username FROM user WHERE user_id=1;
+	\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{PDO}
+	\framesubtitle{One statement to rule them all}
+	\begin{onlyenv}<1>
+
+		\begin{minted}{php}
+<?php
+try {
+	require 'config.php';
+	$conn = new PDO("mysql:host=$servername;dbname=$dbname",
+	$username,
+	$password,
+	array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+} catch (PDOException $e) {
+	echo "Error: " . $e->getMessage();
+}
+		\end{minted}
+	\end{onlyenv}
+	\begin{onlyenv}<2>
+		\begin{minted}{php}
+<?php
+$stmt = $conn->prepare("SELECT * FROM user WHERE username = :username");
+$stmt->bindParam(':username',$sane_user);
+$stmt->execute();
+$result = $stmt->fetchAll();
+		\end{minted}
+	\end{onlyenv}
 \end{frame}
 
 \end{document}

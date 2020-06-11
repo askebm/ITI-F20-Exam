@@ -24,7 +24,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{minted}
+\setminted{linenos=true,breaklines=true,obeytabs=true,tabsize=2}
+\usepackage{import}
+\newcommand{\includesvg}[2][./]{%
+    \immediate\write18{inkscape #1#2.svg --export-latex -D --export-filename=#1#2.pdf }
+\import{#1}{#2.pdf_tex}
+}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 \usepackage{helvet}
@@ -38,7 +45,7 @@
   \href{#1}{{\usebeamercolor[bg]{SDUsimple}#2}}%
 }
 
-\title{HHTP, PHP, Sessions and Cookies}
+\title{HTTP, PHP, Sessions and Cookies}
 \subtitle{Backend stuff ish}
 %\date{\today}
 \date{ }
@@ -84,21 +91,79 @@
 
 % TOC
 \begin{frame}{Agenda}{\vphantom{(y}}
-\tableofcontents
-\end{frame}
-%%%%%%%%%%%%%%%
-
-\section{Introduction}
-
-\begin{frame}[t]
-	\frametitle{Items}
-	\framesubtitle{Otems}
 	\begin{itemize}
 		\item HTTP verbs
 		\item Sessions - Cookies
+		\item Superglobals
 		\item Cross Site Scripting
-		\item HTTPS - SSL encryption
+		\item HTTPS vs HTTP
 	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+
+\begin{frame}[fragile]
+	\frametitle{HTTP}
+	\framesubtitle{Verbs}
+	\begin{itemize}
+		\item GET
+		\item POST
+		\item PUT
+		\item DELETE
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Session \& Cookies}
+	\framesubtitle{Be wary of the cookie monster}
+	\begin{figure}
+		\centering
+		\includesvg[./]{sessionCookie}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Superglobals}
+	\framesubtitle{Everything is consistent, except when it is not}
+	\begin{itemize}
+		\item \mintinline{php}{$_SESSION}
+		\item \mintinline{php}{$_COKIEES}
+		\item \mintinline{php}{$_POST}
+		\item \mintinline{php}{$_GET}
+	\end{itemize}
+	\pause
+	\vfill
+		\begin{minted}{php}
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
+		\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Cross-Site Scripting}
+	\framesubtitle{aka Offroad}
+	\begin{figure}[h]
+		\centering
+%		\def\svgwidth{0.3\textwidth}
+		\scalebox{0.7}{
+			\includesvg{input}
+		}
+	\end{figure}
+	\mintinline{php}{$sanitizedSubject = filter_var ($Subject, FILTER_SANITIZE_SPECIAL_CHARS);}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{HTTP vs HTTPS}
+	\framesubtitle{Symmetric and Asymmetric}
+	\begin{figure}[h]
+		\centering
+		\def\svgwidth{0.7\textwidth}
+		\includesvg[./]{http-vs-https}
+	\end{figure}
+\footnote{https://www.cloudflare.com/learning/ssl/what-is-ssl/}	
 \end{frame}
 
 \end{document}
