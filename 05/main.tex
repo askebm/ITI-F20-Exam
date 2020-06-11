@@ -24,7 +24,21 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
+\usepackage{dirtree}
+\setlength{\DTbaselineskip}{15pt}
+\DTsetlength{0.2em}{1em}{0.2em}{0.4pt}{1.6pt}
+\usepackage{booktabs}
+\usepackage{minted}
+\setminted{linenos=true,breaklines=true,obeytabs=true,tabsize=2}
+\usepackage{import}
+\newcommand{\includesvg}[2][./]{%
+    \immediate\write18{inkscape #1#2.svg --export-latex -D --export-filename=#1#2.pdf }
+\import{#1}{#2.pdf_tex}
+}
+
+\usepackage{pgf}
+\usetikzlibrary{graphs,graphdrawing,quotes}
+\usegdlibrary{force,layered,circular}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 \usepackage{helvet}
@@ -84,16 +98,7 @@
 
 % TOC
 \begin{frame}{Agenda}{\vphantom{(y}}
-\tableofcontents
-\end{frame}
-%%%%%%%%%%%%%%%
-
-\section{Introduction}
-
-\begin{frame}[t]
-	\frametitle{Items}
-	\framesubtitle{Items}
-	\begin{itemize}
+\begin{itemize}
 		\item Concept
 		\begin{itemize}
 			\item Models
@@ -103,6 +108,67 @@
 		\item Routers
 		\item Structure
 	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+
+\begin{frame}[fragile]
+	\frametitle{MVC}
+	\framesubtitle{Model View Control}
+	\begin{figure}[h]
+	\begin{center}
+		\begin{tikzpicture}[scale=1, transform shape, every node/.style={draw,minimum width=2cm}]
+		\graph[spring layout,node distance=2cm]{
+			Model -> {
+				Database,
+				Controller -> {
+					View,
+					Client
+				}
+			},
+			Database -> Model,
+			View -> Controller,
+			Client -> Controller,
+			Controller -> Model
+		};
+	\end{tikzpicture}
+	\end{center}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Routers}
+	\framesubtitle{localhost:80/api/v1/slide/pdf/\thepage}
+
+	\vfill
+	\texttt{localhost:8000/user/mcv/public/
+		\textcolor{red!80!black}{user}/
+		\textcolor{blue!80!black}{image}/
+		\textcolor{green!80!black}{id}
+	}
+
+	\vfill
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{MVC}
+	\framesubtitle{Structure}
+	\dirtree{%
+		.1 mvc.
+		.2 app.
+		.3 controllers.
+		.3 core.
+		.3 models.
+		.3 services.
+		.3 views.
+		.4 home.
+		.4 image.
+		.4 partials.
+		.4 user.
+		.2 public.
+		.3 js.}
 \end{frame}
 
 \end{document}
