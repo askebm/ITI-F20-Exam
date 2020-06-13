@@ -109,36 +109,38 @@
 \begin{frame}[fragile]
 	\frametitle{Structure}
 	\framesubtitle{Database or Schema, who knows?}
-	\begin{figure}[htpb]
+	\vfill
+	\begin{figure}[h]
 	\begin{center}
 	\begin{tikzpicture}[scale=1, transform shape]
 		\graph[layered layout]{
-			"DBMS"[draw] //[draw] {
+			"DBMS"[draw] // {
 				Schema1 [draw] // {
-					table1[draw,minimum width=3cm]
+					table1[draw,minimum width=5cm,minimum height=3cm]
 				},
 				Schema2 [draw]// {
-					table2[draw,minimum width=3cm]
+					table2[draw,minimum width=5cm,minimum height=3cm]
 				}
 			}
 		};
 	\end{tikzpicture}
 	\end{center}
 	\end{figure}
+	\vfill
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{MySQL Syntax}
 	\framesubtitle{EVERYTHINGS IS IN CAPS!}
 	\begin{minted}{mysql}
-drop database if exists dbName;
-create database dbName;
-use dbName;
+DROP DATABASE IF EXISTS dbName;
+CREATE DATABASE dbName;
+USE dbName;
 
 CREATE TABLE user (
 	user_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-	username varchar(100) NOT NULL,
-	password varchar(100) NOT NULL
+	username VARCHAR(100) NOT NULL,
+	password VARCHAR(100) NOT NULL
 );
 	\end{minted}
 	\pause
