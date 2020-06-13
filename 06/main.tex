@@ -142,17 +142,45 @@ public function users () {
 	\end{minted}
 \end{frame}
 
+\usetikzlibrary{shapes.arrows,shapes.geometric,calc,shadings}
 \begin{frame}[fragile]
 	\frametitle{REST}
 	\framesubtitle{You're still using SOAP? Take a REST}
 	\begin{figure}[h]
-		\centering
-		\def\svgwidth{0.8\textwidth}
-		\scalebox{0.8}{
-			\includesvg[./]{REST}
-		}
+	\begin{center}
+		\begin{tikzpicture}[scale=1, transform shape,every node/.style={color=black}]
+		\draw (0,0) node[anchor=east,text width=8cm,minimum height=0.7cm,
+		fill=black!50](a){Level 0: The Wamp of POX}
+		(0,1) node[anchor=east,text width=7cm,minimum height=0.7cm,
+		fill=yellow!30!black](b){Level 1: Resources}
+		(0,2) node[anchor=east,text width=6cm,minimum height=0.7cm,
+		fill=yellow!45!black](c){Level 2: HTTP Verbs}
+		(0,3) node[anchor=east,text width=5cm,minimum height=0.7cm,
+		fill=yellow!57!black](d){Level 3: Hypermedia Control}
+		($ (a.south east) + (0.5cm,0) $) node [single arrow, minimum height=4.7cm,
+		shape border rotate=90,anchor=south,minimum width=1.5cm,
+		top color=yellow!60!black, bottom color=black!50!white](e){}
+		($ (e.north) + (0,0.4cm) $) node[ellipse,minimum width=1.5cm,
+		minimum height=0.6cm,fill=yellow!60!black](g) {}
+		(g) node[ellipse,minimum width=1.3cm,
+		minimum height=0.45cm,fill=white] {}
+		($ (g.north) + (0,0.2cm) $) node{Glory of REST};
+	\end{tikzpicture}
+	\end{center}
 	\end{figure}
 \end{frame}
+
+%\begin{frame}[fragile]
+%	\frametitle{REST}
+%	\framesubtitle{You're still using SOAP? Take a REST}
+%	\begin{figure}[h]
+%		\centering
+%		\def\svgwidth{0.8\textwidth}
+%		\scalebox{0.8}{
+%			\includesvg[./]{REST}
+%		}
+%	\end{figure}
+%\end{frame}
 
 
 \begin{frame}[fragile]
