@@ -146,10 +146,11 @@ if (session_status() == PHP_SESSION_NONE) {
 	\framesubtitle{aka Offroad}
 	\begin{figure}[h]
 		\centering
+		\includegraphics[width=0.3\textwidth]{input.png}
 %		\def\svgwidth{0.3\textwidth}
-		\scalebox{0.7}{
-			\includesvg{input}
-		}
+		%\scalebox{0.7}{
+		%	\includesvg{input}
+		%}
 	\end{figure}
 	\mintinline{php}{$sanitizedSubject = filter_var ($Subject, FILTER_SANITIZE_SPECIAL_CHARS);}
 \end{frame}
