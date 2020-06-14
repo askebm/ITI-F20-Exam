@@ -159,10 +159,12 @@ SELECT username FROM user WHERE user_id=1;
 <?php
 try {
 	require 'config.php';
-	$conn = new PDO("mysql:host=$servername;dbname=$dbname",
-	$username,
-	$password,
-	array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+	$conn = new PDO(
+		"mysql:host=$servername;dbname=$dbname",
+		$username,
+		$password,
+		array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
+	);
 } catch (PDOException $e) {
 	echo "Error: " . $e->getMessage();
 }
